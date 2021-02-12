@@ -19,16 +19,11 @@ Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
 function showPage(list, page) {
-  const startIndex = (page * itemsPerPage) - itemsPerPage;
-  console.log(startIndex);
-
-  const endIndex = page * itemsPerPage;
-  console.log(endIndex);
 
   // create two variables which will represent the index for the first and last student on the page
-  const firstStudent = ``; // I'm not sure
-  const lastStudent = ``; // I'm not sure
 
+  const startIndex = (page * itemsPerPage) - itemsPerPage;
+  const endIndex = page * itemsPerPage;
 
   // select the element with a class of `student-list` and assign it to a variable
 
@@ -45,7 +40,7 @@ function showPage(list, page) {
 
     // inside the loop create a conditional to display the proper students
 
-    if ( i>= startIndex && i < endIndex) {
+    if (i >= startIndex && i < endIndex) {
 
       // inside the conditional:
         // create the elements needed to display the student information
@@ -62,7 +57,6 @@ function showPage(list, page) {
           </div>
         </li>
       `;
-      console.log(studentItem);
 
         // insert the above elements
 
@@ -70,7 +64,7 @@ function showPage(list, page) {
     }
   }
 }
-showPage(data, 2);
+showPage(data, 1);
 
 
 /*
@@ -78,6 +72,38 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
+function addPagination(list) {
+  // How many pages?
+  const numOfPages = Math.ceil(list.length / itemsPerPage);
+  
+  // link-list
+  let linkList = document.querySelector('.link-list');
+  linkList.innerHTML = '';
 
+  // Create pagination buttons
+  for (let i = 1; i <= numOfPages; i++) {
+    linkList.insertAdjacentHTML('beforeend', `
+      <li>
+        <button type="button">${i}</button>
+      </li>
+    `);
+  }
+  linkList.firstElementChild.firstElementChild.className = 'active';
+
+  // Event listener for click on pagination
+  linkList.addEventListener('click', (e) => {
+    let pageToDisplay;
+    const clickedButton = e.target;
+    if (clickedButton.tagName === 'BUTTON') {
+      pageToDisplay = clickedButton.textContent;
+      linkList.querySelector('.active').classList.remove('active');
+      clickedButton.classList.add('active');
+
+      // Display clicked page
+      showPage(list, pageToDisplay);
+    }
+  });
+}
 
 // Call functions
+addPagination(data);
