@@ -119,11 +119,15 @@ const searchInput = header.querySelector('input#search');
 const searchSubmit = header.querySelector('button#search-button');
 
   // Create search function with parameters name & list
-function searchFunc(name, list) {
+function searchFunc(searchText, list) {
   let newData = [];
+  // Loop through list
   for (let i = 0; i < list.length; i++) {
+    // create constant with first and last name from list and convert to lowercase
     const toCheck = `${list[i].name.first.toLowerCase()} ${list[i].name.last.toLowerCase()}`;
-    if (toCheck.includes(name.toLowerCase())) {
+
+    // does toCheck contain searchText?
+    if (toCheck.includes(searchText.toLowerCase())) {
       newData.push(list[i]);
     }
   }
