@@ -64,7 +64,6 @@ function showPage(list, page) {
     }
   }
 }
-showPage(data, 1);
 
 
 /*
@@ -92,10 +91,9 @@ function addPagination(list) {
 
   // Event listener for click on pagination
   linkList.addEventListener('click', (e) => {
-    let pageToDisplay;
     const clickedButton = e.target;
     if (clickedButton.tagName === 'BUTTON') {
-      pageToDisplay = clickedButton.textContent;
+      const pageToDisplay = clickedButton.textContent;
       linkList.querySelector('.active').classList.remove('active');
       clickedButton.classList.add('active');
 
@@ -105,5 +103,34 @@ function addPagination(list) {
   });
 }
 
+// Extra credit
+
+  // Add search form to header
+const header = document.querySelector('header');
+header.insertAdjacentHTML('beforeend', `
+  <label for="search" class="student-search">
+    <input id="search" placeholder="Search by name...">
+    <button type="button" id="search-button"><img src="img/icn-search.svg" alt="Search icon"></button>
+  </label>
+`);
+
+  // Variables to reference search input and button
+const searchInput = header.querySelector('input#search');
+const searchSubmit = header.querySelector('button#search-button');
+
+  // Create search function with parameters name & list
+function searchFunc(name, list) {
+  let newData = [];
+  for (let i = 0; i < list.length; i++) {
+    const toCheck = `${list[i].name.first.toLowerCase()} ${list[i].name.last.toLowerCase()}`;
+    if (toCheck.includes(name.toLowerCase())) {
+      newData.push(list[i]);
+    }
+  }
+  console.log(newData);
+}
+searchFunc('ea', data); // a test
+
 // Call functions
+showPage(data, 1);
 addPagination(data);
