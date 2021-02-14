@@ -109,31 +109,50 @@ function addPagination(list) {
 const header = document.querySelector('header');
 header.insertAdjacentHTML('beforeend', `
   <label for="search" class="student-search">
-    <input id="search" placeholder="Search by name...">
+    <input type="text" id="search" placeholder="Search by name...">
     <button type="button" id="search-button"><img src="img/icn-search.svg" alt="Search icon"></button>
   </label>
 `);
 
-  // Variables to reference search input and button
-const searchInput = header.querySelector('input#search');
-const searchSubmit = header.querySelector('button#search-button');
-
   // Create search function with parameters name & list
 function searchFunc(searchText, list) {
+  // Conditional to refresh page  and exit function if !searchText
+  if (!searchText) {
+    showPage(data, 1);
+    addPagination(data);
+    return;
+  }
+  // Array to contain students matching search
   let newData = [];
+
   // Loop through list
   for (let i = 0; i < list.length; i++) {
-    // create constant with first and last name from list and convert to lowercase
+    // create constant toCheck with first and last name from list and convert to lowercase
     const toCheck = `${list[i].name.first.toLowerCase()} ${list[i].name.last.toLowerCase()}`;
 
     // does toCheck contain searchText?
     if (toCheck.includes(searchText.toLowerCase())) {
+      // Add matched student to newData array
       newData.push(list[i]);
     }
   }
-  console.log(newData);
+  // Call showPage() & addPagination() functions
+  showPage(newData, 1);
+  addPagination(newData);
 }
-searchFunc('ea', data); // a test
+
+  // Variables to reference search input and button
+const searchInput = header.querySelector('#search');
+const searchSubmit = header.querySelector('#search-button');
+
+  // Event listeners for search
+searchInput.addEventListener('keyup', () => {
+  searchFunc(searchInput.value, data);
+});
+
+searchSubmit.addEventListener('click', () => {
+  searchFunc(searchInput.value, data);
+});
 
 // Call functions
 showPage(data, 1);
