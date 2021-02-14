@@ -116,12 +116,6 @@ header.insertAdjacentHTML('beforeend', `
 
   // Create search function with parameters name & list
 function searchFunc(searchText, list) {
-  // Conditional to refresh page  and exit function if !searchText
-  if (!searchText) {
-    showPage(data, 1);
-    addPagination(data);
-    return;
-  }
   // Array to contain students matching search
   let newData = [];
 
