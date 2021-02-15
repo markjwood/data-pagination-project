@@ -37,13 +37,9 @@ function showPage(list, page) {
   // loop over the length of the `list` parameter
 
   for (let i = 0; i < list.length; i++) {
-
-    // inside the loop create a conditional to display the proper students
-
+    // conditional to display the proper students
     if (i >= startIndex && i < endIndex) {
-
-      // inside the conditional:
-        // create the elements needed to display the student information
+      // create the elements needed to display the student information
       
       const studentItem = `
         <li class="student-item cf">
@@ -64,7 +60,6 @@ function showPage(list, page) {
     }
   }
 }
-
 
 /*
 Create the `addPagination` function
@@ -114,7 +109,7 @@ header.insertAdjacentHTML('beforeend', `
   </label>
 `);
 
-  // Create search function with parameters name & list
+  // Create search function with parameters searchText & list
 function searchFunc(searchText, list) {
   // Array to contain students matching search
   let newData = [];
