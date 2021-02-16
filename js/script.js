@@ -19,8 +19,6 @@ Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
 function showPage(list, page) {
-  console.log(list.length);
-
   // create two variables which will represent the index for the first and last student on the page
 
   const startIndex = (page * itemsPerPage) - itemsPerPage;
@@ -31,7 +29,7 @@ function showPage(list, page) {
   let studentList = document.querySelector('.student-list');
 
   // Check for empty list
-  if (list.length > 0) {
+  if (list.length) {
     // set the innerHTML property of the studentList variable to an empty string
     // Clear previously-displayed students from list
   
@@ -75,36 +73,38 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
-function addPagination(list) {  
+function addPagination(list) {
   // link-list
   let linkList = document.querySelector('.link-list');
   linkList.innerHTML = '';
 
-  // How many pages?
-  const numOfPages = Math.ceil(list.length / itemsPerPage);
+  if (list.length) { // Only continue if 'list' is not empty
+    // How many pages?
+    const numOfPages = Math.ceil(list.length / itemsPerPage);
 
-  // Create pagination buttons
-  for (let i = 1; i <= numOfPages; i++) {
-    linkList.insertAdjacentHTML('beforeend', `
-      <li>
-        <button type="button">${i}</button>
-      </li>
-    `);
-  }
-  linkList.firstElementChild.firstElementChild.className = 'active';
-
-  // Event listener for click on pagination
-  linkList.addEventListener('click', (e) => {
-    const clickedButton = e.target;
-    if (clickedButton.tagName === 'BUTTON') {
-      const pageToDisplay = clickedButton.textContent;
-      linkList.querySelector('.active').classList.remove('active');
-      clickedButton.classList.add('active');
-
-      // Display clicked page
-      showPage(list, pageToDisplay);
+    // Create pagination buttons
+    for (let i = 1; i <= numOfPages; i++) {
+      linkList.insertAdjacentHTML('beforeend', `
+        <li>
+          <button type="button">${i}</button>
+        </li>
+      `);
     }
-  });
+    linkList.firstElementChild.firstElementChild.className = 'active';
+
+    // Event listener for click on pagination
+    linkList.addEventListener('click', (e) => {
+      const clickedButton = e.target;
+      if (clickedButton.tagName === 'BUTTON') {
+        const pageToDisplay = clickedButton.textContent;
+        linkList.querySelector('.active').classList.remove('active');
+        clickedButton.classList.add('active');
+
+        // Display clicked page
+        showPage(list, pageToDisplay);
+      }
+    });
+  }
 }
 
 // Extra credit
